@@ -174,7 +174,14 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
     method: 'POST',
     data: data
     })
-}
+  }
+  this.createDatabase = function(userId) {
+    return $http({
+      url: 'createdatabase.php',
+      method: 'POST',
+      data: {UserId:userId}
+    })
+  }
 
   return this;
 

@@ -31,14 +31,11 @@ playlistApp.controller('CallbackCtrl', function ($scope,Playlist,$location,$http
   //PASSES THE USER ID TO THE BACKEND AND SETS UP TABLES FOR THE USER
   $scope.createDatabase = function(userId) {
     console.log("create database as: "+userId);
-    $http({
-      url: 'createdatabase.php',
-      method: 'POST',
-      data: {UserId:userId}
-    }).then(function SuccessCallback(response){
-      console.log("Database created!" + response.data)
-    }, function errorCallback(response){
-      console.log("Error setting up Database!");
+    Playlist.createDatabase(userId)
+      .then(function SuccessCallback(response){
+        console.log("Database created!" + response.data)
+      }, function errorCallback(response){
+        console.log("Error setting up Database!");
     });
   }
 
