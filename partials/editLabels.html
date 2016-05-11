@@ -1,0 +1,37 @@
+    <!-- Here in index.html you should put only the layout that is shared among all the screens (e.g. header
+    ,footer, etc.). The rest of the view specific layout will go into the html partials (check partials folder) -->
+
+    <!-- ng-view Angular directive is where the partials will be loaded. app.js configures the $routingProvider
+    where you specify which partial should be loaded when. -->
+<ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
+
+<div class="container" ng-controller="EditLabelsCtrl">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <h3>Your mood labels:</h3>
+            <form method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="moodLabel" placeholder="Add a mood label">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" ng-click="addLabel('mood',moodLabel)"/>
+                </div>
+            </form>
+            <div id="addLabel-moods">
+            </div>
+        </div>
+        <div class="col-md-6">
+        <h3>Your genre labels:</h3>
+            <form method="GET" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="genreLabel" placeholder="Add a genre label">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" ng-click="addLabel('genre',genreLabel)"/>
+                </div>
+            </form>
+            <div id="addLabel-genres">
+            </div>
+        </div>
+    </div>
+</div>

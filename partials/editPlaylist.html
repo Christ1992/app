@@ -1,0 +1,82 @@
+    <!-- Here in index.html you should put only the layout that is shared among all the screens (e.g. header
+    ,footer, etc.). The rest of the view specific layout will go into the html partials (check partials folder) -->
+
+    <!-- ng-view Angular directive is where the partials will be loaded. app.js configures the $routingProvider
+    where you specify which partial should be loaded when. -->
+    <ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
+
+    <div class="container" ng-controller="EditPlaylistCtrl">
+
+        <div class="col-md-2">
+            <div>
+                <a href="#search" class="btn btn-default btn-xs">Go Back</a>
+            </div>
+            <hr>
+            <div class="sideList">
+                <div ng-repeat="item in playlistArrow">
+                    <a ng-href="#/playlist/{{item.id}}/{{item.owner.id}}/{{item.name}}">
+                    <img class="playlistPic" id="{{item.id}}" ng-src="{{item.images[0].url}}">
+                    </a>
+                    <p>{{item.name}}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <h2>Edit playlist</h2>
+            <form method="GET">
+                <div class="form-group">
+                     <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
+                    <input type="text" class="form-control" ng-model="keywords" placeholder="{{savedkeywords}}">
+                </div>
+                <div class="form-group">
+                    <label>Select a mood: </label>
+                    <select class="form-control" id="mood-select" ng-model="moodList">
+                        <option value="" disabled>{{mood}}</option>
+                        <option value="energetic">Energetic</option>
+                        <option value="romantic">Romantic</option>
+                        <option value="chill">Chill</option>
+                        <option value="sleepy">Sleepy</option>
+                        <option value="party">Party</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Select a genre: </label>
+                    <select class="form-control" id="genre-select" ng-model="genreList" title="please select">
+                        <option value="" disabled>{{genre}}</option>
+                        <option value="rock">Rock</option>
+                        <option value="pop">Pop</option>
+                        <option value="electro" selected>Electro</option>
+                        <option value="acoustic">Acoustic</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
+                </div>
+
+
+            </form>
+        </div>
+            
+        <div class="col-md-7 playlistview">
+           <span class="editplaylist-title">{{playlistName}}</span>
+            <span id="follow-button-span">
+        </div>
+        <div class="col-md-7" id="player-div">
+        </div>
+
+
+<!--<table class="table table-striped">
+    <thead>
+            <td>Artist</td>
+            <td>Track</td>        
+    </thead>
+    <tbody>
+        <tr ng-repeat="key in playlist">
+            <td>{{key.track.artists[0].name}}</td>
+            <td><a href='{{key.track.uri}}'>{{key.track.name}}</a></td>
+        </tr>
+    </tbody>
+</table>    -->
+</div>

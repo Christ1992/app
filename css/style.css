@@ -1,0 +1,440 @@
+body{
+	background-color: #222;
+	color:#85BC00;
+}
+
+
+
+/* SEARCH VIEW */
+#genre-mood-container{
+	text-align: center;
+	width:610px;
+	margin:auto;
+}
+
+#search-moods{
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+#search-genres{
+	display: inline-block;
+	margin-bottom: 10px;
+
+}
+
+.span-moods{
+	background-color: #000;
+	display: inline-block;
+	margin:2px;
+	padding:5px;
+	font-weight:bold;
+	font-size: 18px;
+	color:#555;
+}
+
+.span-label{
+	display: block;
+	font-weight: bold;
+}
+.span-moods:hover{
+	color:#fff;
+	cursor:pointer;
+}
+.currentLink{
+	background-color: #00bb00;
+	color:#fff;
+}
+.span-moods-remove{
+	background-color: #000;
+	display: inline-block;
+	margin:2px;
+	padding:5px;
+	font-weight:bold;
+	font-size: 18px;
+	color:#555;
+}
+
+.span-moods-remove:hover{
+	color:#660000;
+	background-color: #ff0000;
+
+	cursor:pointer;
+}
+/*
+.div-edited{
+	background-color: yellow;
+	margin-top: 162px;
+	margin-left: 83px;
+	position: absolute;
+	width:5px;
+	height:5px;
+	border-width: 1px;
+	border-color: #000;
+	border-radius: 5px;
+	}
+*/
+
+.form-control{
+	background-color:#000;
+	color:#fff;
+	border-color:#aaa;
+}
+
+#home-screen{
+	margin-top: 150px;
+	text-align: center;
+	color:#fff;
+}
+
+.login-btn{
+	font-size: 24px;
+	width:50%;
+	height:50px;
+	background-color:#85BC00;
+	border-color: #000;
+}
+
+.login-btn:hover {
+	width:50%;
+	height:50px;
+	background-color:#85BC99;
+}
+
+#header{
+	height:60px;
+	color:white;
+	background-color: #000;
+	border-bottom-style: solid;
+	border-bottom-color: #fff;
+	border-bottom-width: 1px;
+}
+
+.profile-pic{
+	display:inline-block;
+	height:85%;
+	margin-right:10px;
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
+#log-in{
+	height:55px;
+	display:inline-block;
+	font-size: 16px;
+	line-height: 60px;
+}
+
+.playlist-div{
+	margin-left:10px;
+	margin-bottom:10px;
+	height:170px;
+	width:170px;
+	background-color: #ccc;
+	background-size: 100%;
+	display: inline-block;
+	overflow: hidden;
+}
+
+.playlist-div-details{
+	color: #fff;
+	text-align: center;
+	width:100%;
+	line-height:40px;
+	margin-top: 130px;
+	background-color: rgba(0,0,0,0.8);
+	display:block;
+	font-size: 14px;
+	height:170px;}
+
+
+
+
+/* EDIT PLAYLIST VIEW */
+
+#player-div{
+	background-color: #000;
+	overflow: hidden;
+	padding-top:10px;
+	text-align: center;
+}
+
+.editplaylist-title {
+	display: inline-block;
+	color:#ccc;
+	font-size: 28px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+.editplaylist-follow {
+	background-color:#fff;
+	color:#666;
+	border-color:#ccc;
+	margin-top:18px;
+	width:100px;
+	border-radius: 20px;
+	display: inline-block;
+	font-size: 14px;
+	float:right;
+}
+
+.editplaylist-follow:hover {
+	border-color:#00ff00;
+	color:#fff;
+}
+
+.sideList{
+	min-height:100px;
+	overflow-y:auto;
+	max-height:500px;}
+}
+
+
+.hwq2button {  
+    display: inline-block;  
+    zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */  
+    *display: inline;  
+    vertical-align: baseline;  
+    margin: 0 2px;  
+    outline: none;  
+    cursor: pointer;  
+    text-align: center;  
+    text-decoration: none;  
+    font: 14px/100% Arial, Helvetica, sans-serif;  
+    padding: .5em 2em .55em;  
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);  
+    -webkit-border-radius: .5em;  
+    -moz-border-radius: .5em;  
+    border-radius: .5em;  
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);  
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);  
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);  
+ }  
+.hwq2button:hover {  
+    text-decoration: none;  
+}  
+
+.hwq2button:active {  
+    position: relative;  
+    top: 1px;  
+}  
+
+.bigrounded {  
+    -webkit-border-radius: 2em;  
+    -moz-border-radius: 2em;  
+    border-radius: 2em;  
+}  
+.white {  
+color: #606060;  
+border: solid 1px #b7b7b7;  
+background: #fff;  
+background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));  
+background: -moz-linear-gradient(top, #fff, #ededed);  
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');  
+}  
+
+.empty {    
+border: solid 1px #b7b7b7;
+color: #606060;    
+background: -moz-linear-gradient(top, #fff, #ededed);  
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');  
+}  
+
+.white:hover {  
+    background: #ededed;  
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));  
+    background: -moz-linear-gradient(top, #fff, #dcdcdc);  
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');  
+}  
+
+.white:active {  
+    color: #999;  
+    background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));  
+    background: -moz-linear-gradient(top, #ededed, #fff);  
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');  
+}  
+
+
+.playlistPic{
+    width: 60% auto;
+    max-height:100px;
+
+}
+.playlistPic:hover{
+    width: 90% auto;
+    max-height:140px;
+}
+
+
+.errormsg{
+	font-size:22px;
+	background-color: #ff0000;
+	color:#fff;
+}
+
+.header-style1{
+	padding:5px;
+	font-size: 22px;
+	background-color:#000;
+	color:#fff;
+}
+
+#results, #suggested-results{
+	margin-bottom: 10px;
+}
+
+.tooltipLink{
+	font-size: 1.5em;
+	line-height: 60px;
+	color:#666;
+	display: inline-block;
+	float:right;
+}
+
+.tooltipLink:hover{
+	color:#fff;
+}
+
+/* TOOLTIP DESIGN */
+
+/* Tooltip */
+  .tooltipLink + .tooltip > .tooltip-inner {
+  	  margin-right:15px;
+      background-color: #73AD21; 
+      color: #FFFFFF; 
+      border: 1px solid green; 
+      padding: 10px;
+      font-size: 16px;
+  }
+  /* Tooltip on top */
+  .test + .tooltip.top > .tooltip-arrow {
+      border-top: 5px solid green;
+  }
+  /* Tooltip on bottom */
+  .test + .tooltip.bottom > .tooltip-arrow {
+      border-bottom: 5px solid blue;
+  }
+  /* Tooltip on left */
+  .test + .tooltip.left > .tooltip-arrow {
+      border-left: 5px solid red;
+  }
+  /* Tooltip on right */
+  .tooltipLink + .tooltip.right > .tooltip-arrow {
+      border-right: 5px solid white;
+  }
+
+.box-container{
+	width:170px;
+	height:170px;
+	position: absolute;
+	z-index:10;
+	cursor:pointer;
+}
+.addLabels{
+	padding:10px;
+	float:right;
+	display:block;
+	font-size:18px;
+	line-height: 40px;
+}
+
+.form-label{
+	display:block;
+}
+
+/*header*/
+.profile-pic{
+	width: 40px;
+	height:40px;
+
+}
+#logoutButton{
+	width:40px;
+	height:25px;
+	color:#424242;
+    background-color:#ededed;
+    border-radius:5px;
+}
+
+#title{
+	font-size:36px;
+}
+
+#clearOption{
+	float:right;
+	display:block;
+	font-size:12px;
+	line-height: 16px;
+}
+
+/*Bootstrap*/
+.btn-default{
+	background: none;
+	border: 2px solid white;
+	color: white;
+}
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
+    color: white;
+    background-color: #85BC00;
+    border-color: white;
+}
+.btn-xs{
+	padding: 6px 22px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 5px;
+}
+/* Add a dark background color with a little bit see-through */ 
+.navbar {
+    margin-bottom: 20px;
+    background-color: #000000;
+    border: none;
+    border-bottom: white solid 1px;
+    border-radius: 0;
+    font-family: Arial;
+    font-size: 14px ;
+    letter-spacing: 1px;
+
+    opacity: 0.9;
+    width: 100%;
+}
+
+/* Add a gray color to all navbar links */
+.navbar li a, .navbar .navbar-brand { 
+    color: white ;
+}
+
+
+/* Remove border color from the collapsible button */
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+
+/* Dropdown */
+.open .dropdown-toggle {
+    color: #fff ;
+    background-color: #555 ;
+}
+
+/* Dropdown links */
+.dropdown-menu li a {
+    color: #000 ;
+}
+
+/* On hover, the dropdown links will turn red */
+.dropdown-menu li a:hover {
+    background-color: red;
+}
+.glyphicon{
+	margin-right: 7px;
+}
+.F-right{
+	float: right;
+}
+.Username{
+	margin-right: 20px;
+}
+.helpPicture{
+	width:100%;
+}

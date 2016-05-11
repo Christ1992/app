@@ -1,0 +1,34 @@
+<!--<div class="col-md-12" id="header" ng-controller="HeaderCtrl">
+
+	<span id="log-in"><img src="{{userinfo.images[0].url}}" class="img-circle profile-pic">{{userinfo.display_name}}</span>
+
+	<span class="addLabels"><a ng-href="#/editLabels" class="btn btn-primary">EDIT LABELS</a></span>
+	<a data-toggle="tooltip" class="tooltipLink" data-original-title="Need help? Click here!" data-placement="bottom">
+  		<span class="glyphicon glyphicon-info-sign"></span>
+	</a>
+</div>-->
+
+<nav class="navbar navbar-default" role="navigation"> 
+   <div class="navbar-header"> 
+      <a class="navbar-brand" href="#/search">PlaylistManager</a> 
+      <button type="button" class="navbar-toggle" data-toggle="collapse"  
+         data-target="#example-navbar-collapse"> 
+         <span class="sr-only">切换导航</span> 
+         <span class="icon-bar"></span> 
+         <span class="icon-bar"></span> 
+         <span class="icon-bar"></span> 
+      </button> 
+   </div> 
+   <div class="collapse navbar-collapse" id="example-navbar-collapse"> 
+     
+      <ul class="nav navbar-nav navbar-right"> 
+         <li><a ng-href="#/search"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>HOME</a></li> 
+         <li><a ng-href="#/editLabels"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>EDIT LABELS</a></li>
+         <li><a ng-href="#/help"> <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>HELP</a></li>
+         <li><a><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> LOGOUT</a></li>
+      
+         <li><span class="Username"><img src="{{userinfo.images[0].url}}" class="img-circle profile-pic"> {{userinfo.display_name}} </span></li>
+         
+      </ul> 
+   </div> 
+</nav> 
