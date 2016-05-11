@@ -1,16 +1,13 @@
 <?php
 include 'db-login.php';
 
-//$info = '000003 03030303 030303030 030303030 030303030';
-//$info = $_POST['Result'];
-//$name = $_POST['Name'];
-//$antalkassa = $_POST['Antalkassa'];
+//$keyword = $_POST['Keyword'];
+//$userId = $_POST['UserId'];
 
-$keyword = $_POST['Keyword'];
-$userId = $_POST['UserId'];
-
-//$keyword = '2016';
-//$userId = 'ledzappa';
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+$keyword = $request->Keyword;
+$userId = $request->UserId;
 
 
 // Create connection
@@ -37,7 +34,7 @@ if ($result->num_rows > 0) {
      echo json_encode($array);
 
 } else {
-    echo "0 results";
+    echo "zeroResults";
 }
 
 ?>

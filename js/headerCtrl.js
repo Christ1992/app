@@ -9,7 +9,9 @@ $(document).ready(function(){
 		//console.log("getting user details..");
 		Playlist.getUserData().then(function(data){
 				//console.log("userdetails: "+data)
-				$scope.userinfo=data;
+				$scope.displayname = data[1];
+				$scope.imgurl = data[2];
+
 			});
 	}
 

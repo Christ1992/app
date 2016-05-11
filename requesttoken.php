@@ -1,4 +1,5 @@
 <?php
+
 //$grant_type = $_POST['Grant_type'];
 //$code = $_POST['Code'];
 //$redirect_uri = $_POST['Redirect_uri'];
@@ -14,7 +15,10 @@ $client_key = "7c6e405a8e084d6488c5bb0e892c52ba";
 $client_secret = "65a0fdf3789f494194eb602b43f0f7e5";
 $encoded = base64_encode($client_key.":".$client_secret);
 $data = array('grant_type' => $grant_type, 'code' => $code, 'redirect_uri' => $redirect_uri);
+
 $post = array('grant_type' => $grant_type, 'code' => $code, 'redirect_uri' => $redirect_uri);
+
+
 $sURL = "https://accounts.spotify.com/api/token"; // The POST URL
 $sPD = "grant_type=authorization_code&code=".$code."&redirect_uri=".$redirect_uri; // The POST Data
 //echo $sPD;
@@ -29,5 +33,7 @@ $aHTTP = array(
 );
 $context = stream_context_create($aHTTP);
 $contents = file_get_contents($sURL, false, $context);
+
 echo $contents;
+
 ?>

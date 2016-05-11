@@ -32,13 +32,13 @@ $scope.getUserLabels = function(userId,labeltype){
   }
 
   $scope.addLabel = function(labelType,newLabel){
-    var userId = Playlist.getUserId();
-    $.ajax({
+  	var userId = Playlist.getUserId();
+  	$.ajax({
       type: 'POST',
       url: 'addLabel.php',
       data: {UserId:userId, LabelType: labelType, NewLabel: newLabel},
       success: function(result){
-        alert('Label added!');
+      	alert('Label added!');
         location.reload();
       },
       error: function(){

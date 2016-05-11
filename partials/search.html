@@ -1,33 +1,17 @@
 <ng-include src="'partials/header.html'" ng-controller="HeaderCtrl"></ng-include>
 <div class="container" ng-controller="SearchCtrl">
 	<div class="col-md-12" class="home">
-      <div>
-          <span id="title">Filter playlists</span>
-          <span id="clearOption"><a class="btn btn-default" onclick="location.reload()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Clear option</a></span>
-      </div>
-      <br>
-   
+		<h3>Filter playlists</h3>
         <div class="col-md-6" id="search-moods">
         </div>
         <div class="col-md-6" id="search-genres">
         </div>
-        
-        <div class="col-md-6" >
-
-            <jqcloud words="mood" width="500" height="350" colors="{{colors}}" delay="10" steps="7" font-size="{from:0.10, to:0.04}"></jqcloud></span>
-        </div>
-        <div class="col-md-6" >
-
-            <jqcloud words="genre" width="500" height="350" colors="{{colors}}" delay="10" steps="7" font-size="{from:0.10, to:0.04}"></jqcloud></span>
-
-        </div>
         <form ng-submit="searchKeywords(keywords)">
-        <div class="form-group">
+		<div class="form-group">
              <input type="text" class="form-control keyword-search" ng-model="keywords" placeholder="Enter keyword and press ENTER">
-        </div>
-        </form>
+      	</div>
+      	</form>
 	</div>
 	<div class="col-md-12 col-sm-12" id="results"></div>
 	<div class="col-md-12" id="results-suggested"></div>
-
 </div>

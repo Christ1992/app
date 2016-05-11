@@ -1,15 +1,15 @@
 <?php
 include 'db-login.php';
 
-//$info = '000003 03030303 030303030 030303030 030303030';
-//$info = $_POST['Result'];
-//$name = $_POST['Name'];
-//$antalkassa = $_POST['Antalkassa'];
+//$genre = $_POST['Query'];
+//$mood = $_POST['Query'];
+//$userId = $_POST['UserId'];
 
-$genre = $_POST['Query'];
-$mood = $_POST['Query'];
-$userId = $_POST['UserId'];
-
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+$genre = $request->Query;
+$mood = $request->Query;
+$userId = $request->UserId;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $databasename);
@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
      echo json_encode($array);
 
 } else {
-    echo "0 results";
+    echo "zeroResults";
 }
 
 ?>

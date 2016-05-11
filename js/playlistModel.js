@@ -66,17 +66,12 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   }
 
       //gets user info of the current user
-      this.getUserData = function(token){
-        if (token==null){
-          token=this.getAccessToken();
-        }
+      this.getUserData = function(){
         return $http({
           method: 'GET',
           url: 'https://api.spotify.com/v1/me',
-          headers: {'Authorization': 'Bearer ' + token}
+          headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
         }).then(function successCallback(response) {
-        // this callback will be called asynchronously
-        // when the response is available
         var data = response.data;
         //var images = data.images;
         console.log(data);
@@ -103,7 +98,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
         });
-      }
+              }
 
 
   //get all tracks within a certain playlist
@@ -138,16 +133,15 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
 
   }
 
-  this.setAccessToken = function(token){
+  /*this.setAccessToken = function(token){
     accessToken = token;
     $cookieStore.put("accesstoken", token);
     console.log("accesstoken set");
-    console.log(accessToken);
-  }
+  };*/
 
   this.setPlaylists = function(array){
     playlists = array;
-  }
+  };
 
   this.getAccessToken = function(){
     if($cookieStore.get("accesstoken")){
@@ -168,18 +162,19 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   }
 
   //Gets the accesstoken from the API and returns it
-  this.returnToken = function(data){
+  this.setAccessToken = function(data){
+    console.log("model-setaccesstoken");
     return $http({
     url: 'requesttoken.php',
     method: 'POST',
     data: data
-    })
-  }
-  this.createDatabase = function(userId) {
-    return $http({
-      url: 'createdatabase.php',
-      method: 'POST',
-      data: {UserId:userId}
+    }).then(function(response){
+      var result = response.data;
+      console.log(result);
+      console.log("Access token: "+result.access_token);
+      accessToken = result.access_token;
+      $cookieStore.put("accesstoken", result.access_token);
+      return result.access_token;
     })
   }
 

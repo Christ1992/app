@@ -225,6 +225,7 @@ body{
     -moz-border-radius: 2em;  
     border-radius: 2em;  
 }  
+
 .white {  
 color: #606060;  
 border: solid 1px #b7b7b7;  
@@ -344,17 +345,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endC
 }
 
 /*header*/
+
 .profile-pic{
 	width: 40px;
 	height:40px;
-
-}
-#logoutButton{
-	width:40px;
-	height:25px;
-	color:#424242;
-    background-color:#ededed;
-    border-radius:5px;
 }
 
 #title{
@@ -432,9 +426,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endC
 .F-right{
 	float: right;
 }
-.Username{
+.username{
 	margin-right: 20px;
+	margin-top: 3px;
+	display: block;
 }
 .helpPicture{
 	width:100%;
+}
+
+.addlabelsform{
+	margin-bottom:10px;
 }

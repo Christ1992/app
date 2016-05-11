@@ -1,6 +1,6 @@
 <?php
-$username = "root";
-$password = "root";
-$servername = "localhost";
-$databasename = 'playlist';
+$username = "mikaeljuntti_se";
+$password = "GbotwmTJ";
+$servername = "mikaeljuntti.se.mysql";
+$databasename = 'mikaeljuntti_se';
 ?>
