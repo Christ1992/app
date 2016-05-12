@@ -3,18 +3,22 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
   // TODO in Lab 5: you will need to implement a method that searchers for dishes
   // including the case while the search is still running.
 
-	$scope.playlistId = $routeParams.playlistId;
-	$scope.playlistUserId = $routeParams.playlistUserId;
-  	$scope.playlistName = $routeParams.playlistName;
-  	$scope.playlistArrow = Playlist.getAllPlaylists();
+  $scope.playlistId = $routeParams.playlistId;
+  $scope.playlistUserId = $routeParams.playlistUserId;
+  $scope.playlistName = $routeParams.playlistName;
 
-	var isFollowed = "";
+  $scope.playlistArrow=Playlist.getAllPlaylists();
 
-	console.log("playlistID"+$scope.playlistId);
-	console.log("playlistUSERID"+$scope.playlistUserId);
+  var isFollowed = "";
 
-  	//$scope.playlist = Playlist.getPlaylistTracks($scope.playlistId);
-  	//$apply();
+
+
+    console.log("playlistID"+$scope.playlistId);
+  console.log("playlistUSERID"+$scope.playlistUserId);
+
+
+  //$scope.playlist = Playlist.getPlaylistTracks($scope.playlistId);
+  //$apply();
 	$scope.getTracks = function(playlistId){
 		console.log("getting tracks..");
 		Playlist.getPlaylistTracks(playlistId).then(function(data){
@@ -22,7 +26,6 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 			});
 	}
 
-	//CHECKS IF THE PLAYLIST IS FOLLOWED AND GENERATES THE FOLLOW BUTTON ACCORDINGLY (follow/unfollow)
 	$scope.checkIfFollowed = function(){
 		console.log("checkiffollowplaylist...");
 		$http({
@@ -46,115 +49,116 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 
 	}
 
-	//FIX HTTP
 	$scope.getUserLabels = function(labeltype){
-	var userId = Playlist.getUserId();
-    console.log("getaUSERID "+userId);
-    $.ajax({
-      type: 'POST',
-      url: 'getlabels.php',
-      dataType: 'json',
-      data: {UserId:userId, LabelType: labeltype},
-      success: function(result){
-      	console.log("getUSERLABELSLELJAFLASLFJLA");
-        if(labeltype=='mood'){
-          $("#mood-select").html('<option value="" disabled>{{mood}}</option>');
-          for(key in result){
-            var $el = $("#mood-select").append('<option value="'+result[key].mood+'">'+result[key].mood+'</option>');
-          }
-          $compile($el)($scope);
-        }else if(labeltype=='genre'){
-          $("#genre-select").html('<option value="" disabled>{{genre}}</option>');
-          for(key in result){
-          	var $el = $("#genre-select").append('<option value="'+result[key].genre+'">'+result[key].genre+'</option>');
-          }
-          $compile($el)($scope);
-        }
-      },
-      error: function(){
-        console.log("GETUSERLABELSERROR!");
-      }
-    });
-  }
+		var userId = Playlist.getUserId();
+	    console.log("getaUSERID "+userId);
+	    $http({
+	      method: 'POST',
+	      url: 'getlabels.php',
+	      dataType: 'json',
+	      data: {UserId:userId, LabelType: labeltype}
+		}).then(function successCallback(response){
+	     	console.log("getUSERLABELSLELJAFLASLFJLA");
+	     	var result = response.data;
+	        if(labeltype=='mood'){
+	          $("#mood-select").html('<option value="" disabled>{{mood}}</option>');
+	          for(key in result){
+	            var $el = $("#mood-select").append('<option value="'+result[key].mood+'">'+result[key].mood+'</option>');
+	          }
+	          $compile($el)($scope);
+	        }else if(labeltype=='genre'){
+	          $("#genre-select").html('<option value="" disabled>{{genre}}</option>');
+	          for(key in result){
+	          	var $el = $("#genre-select").append('<option value="'+result[key].genre+'">'+result[key].genre+'</option>');
+	          }
+	          $compile($el)($scope);
+	        }
 
-	//FIX HTTP
+        	// for(key in result){
+        	// 	$scope.arrowMood.push(result[key].mood);
+        	// 	$scope.arrowGenre.push(result[key].genre);
+        	// }
+        	// console.log($scope.arrowMood);
+        	// console.log($scope.arrowGenre);
+
+		},function errorCallback(response) {
+			console.log("GETUSERLABELSERROR!");
+		});
+	}
+
+
+	//follow playlist button
 	$scope.followPlaylist = function(){
 		console.log("followplaylist...");
-		$.ajax({
+		$http({
       	url: 'https://api.spotify.com/v1/users/'+$scope.playlistUserId+'/playlists/'+$scope.playlistId+'/followers',
       	method: 'PUT',
       	headers: {
-       'Authorization': 'Bearer ' + Playlist.getAccessToken()
-     	},
-     	success: function(result){
-			$scope.checkIfFollowed();
-	        }
-      });	
-	}
+       		'Authorization': 'Bearer ' + Playlist.getAccessToken()}
+     	}).then(function SuccessCallback(response){
+     		$scope.checkIfFollowed();
+     	});
+ 	}
+     	
+     
 
-	//UNFOLLOWS A PLAYLIST
 	$scope.unfollowPlaylist = function(){
 		console.log("unfollowplaylist...");
 		$http({
-			url: 'https://api.spotify.com/v1/users/'+$scope.playlistUserId+'/playlists/'+$scope.playlistId+'/followers',
-			method: 'DELETE',
-			headers: {'Authorization': 'Bearer ' + Playlist.getAccessToken()}
-		}).then(function SuccessCallback(response){
-			$scope.checkIfFollowed(); 
-    	}, function errorCallback(response){
-      		console.log("An error occured");
-    	});
+      	url: 'https://api.spotify.com/v1/users/'+$scope.playlistUserId+'/playlists/'+$scope.playlistId+'/followers',
+      	method: 'DELETE',
+      	headers: {
+       		'Authorization': 'Bearer ' + Playlist.getAccessToken()}
+       	}),then(function SuccessCallback(response){
+			$scope.checkIfFollowed();        
+      	});
 	}
 
-	//CHECKS IF THERE IS ANY META ATTACHED TO THE PLAYLIST IN THE DATABASE
 	$scope.getMeta = function(playlistId){
 		var id=$scope.playlistId;
 		var userid = Playlist.getUserId();
 		console.log("PLaylistID: "+id);
-		$http({
+		$.http({
 			method: 'POST',
 			url: 'getplaylist.php',
-			data: {Id:id, UserId:userid}
-		}).then(function SuccessCallback(response){
-			var result=response.data;
-			$scope.mood=result.mood;
-			$scope.genre=result.genre;
-			$scope.savedkeywords=result.keywords;
-			console.log("META: ");
-			console.log(result);
-			if(result=='zeroResults'){
+			dataType: 'json',
+			data: {Id:id, UserId:userid},
+			}),then(function SuccessCallback(response){
+				var result = response.data;
+				var data=result;
+				$scope.mood=result.mood;
+				$scope.genre=result.genre;
+				$scope.savedkeywords=result.keywords;
+				console.log("META: "+result);
+				console.log(result);
+			},function errorCallback(response){
+				console.log("SOME KIND OF ERROR");
 				$scope.mood="Add a mood!";
 				$scope.genre="Add a genre!";
 				$scope.savedkeywords="Add some keywords!";
-			}
-    	}, function errorCallback(response){
-      		console.log("An error occured");
-    	});
-	}
+			});
+		}
 
-	$scope.getPlayer = function(playlistId,playlistUserId){
+	/*$scope.getPlayer = function(playlistId,playlistUserId){
 		$("#player-div").html("");
 		playerHtml = '<iframe src="https://embed.spotify.com/?uri=spotify:user:'+playlistUserId+':playlist:'+playlistId+'" width="450" height="500" frameborder="0" allowtransparency="true"></iframe>';
 		$("#player-div").append(playerHtml);
-	}
+	}*/
 
-	//FIX HTTP
 	$scope.insert = function(id,mood,genre,keywords){
 		var id=$scope.playlistId;
 		var userId=Playlist.getUserId();
 		console.log("insert "+userId);
-		$.ajax({
-			type: 'POST',
+		$http({
+			method: 'POST',
 			url: 'insert.php',
-			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId},
-			success: function(result){
+			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId}
+		}).then(function SuccessCallback(response){
 				alert("saved!");
 				location.reload();
-			},
-			error: function(){
+			},function errorCallback(response){
 				alert('error saving order');
-			}
-		});
+			});
 	}
 
 	$scope.getUserLabels('mood');
@@ -163,7 +167,6 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	$scope.getTracks($scope.playlistId);
 	$scope.checkIfFollowed();
 	$scope.getPlayer($scope.playlistId,$scope.playlistUserId);
-
 
 
 });

@@ -4,22 +4,17 @@ include 'db-login.php';
 //$info = $_POST['Result'];
 //$name = $_POST['Name'];
 //$antalkassa = $_POST['Antalkassa'];
-
-$id = $_POST['Id'];
-$mood = $_POST['Mood'];
-$genre = $_POST['Genre'];
-$keywords = $_POST['Keywords'];
-$userId = $_POST['UserId'];
-
-
+$id = $request->Id;
+$mood =$request->Mood;
+$genre = $request->Genre;
+$keywords = $request->Keywords;
+$userid = $request->UserId;
 // Create connection
 $conn = new mysqli($servername, $username, $password, $databasename);
-
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-
 //$sql = "INSERT INTO playlist (id, mood, genre, keywords)
 //VALUES ('$id', '$mood', '$genre', '$keywords')";
 if($mood && $genre && $keywords){
@@ -35,10 +30,7 @@ genre='$genre'";
 $sql = "INSERT INTO pl_".$userId."_playlists (id, keywords) VALUES('$id', '$keywords') ON DUPLICATE KEY UPDATE    
 keywords='$keywords'";
 }
-
-
 echo $sql;
-
 if (mysqli_query($conn, $sql)) {
     echo "New record created successfully";
 } else {
