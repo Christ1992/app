@@ -5,6 +5,7 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
   //an array containing ALL THE USERS PLAYLISTS in order to
   //know where to put the "edited" marker. Then we're generating
   //the output html where we also add ng-directives for slide-animations.
+  
   $scope.getAllPlaylists = function(){
     $scope.returnResult="Your playlists:";
     Playlist.getUserPlaylists().then(function successCallback(response) {
@@ -28,7 +29,9 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
             return false
         }
   }
-  
+
+
+ $scope.sgResult=""; 
 //indicator for highlight the labels  
 $scope.selCont = -1;
 $scope.selCont2 = -1;
@@ -48,21 +51,9 @@ $scope.selCont2 = -1;
     $scope.returnResult="";
     $scope.queryResult=Playlist.searchGenreMood(query)
       .then(function SuccessCallback(response){
-        console.log("hihiihihihihihihihi");
-        console.log(response);
-
-        if(response == 'zeroResults'){
-            $scope.returnResult="You don't have any playlists tagged as '"+query+"'. Check out the ones below!";
-            $scope.showPlaylists=[];
-        }else{
-
-            $scope.returnResult="Your playlist tagged as "+query+":";
-            $scope.showPlaylists=Playlist.getPlaylist(response);
-            console.log("$scope.showPlaylists");
-            console.log($scope.showPlaylists);
-        }
+         $scope.drawList(response,query);
       });
-    Playlist.searchPlaylists(query);
+    $scope.searchPlaylists(query);
   }
     
   
@@ -71,23 +62,31 @@ $scope.selCont2 = -1;
       $scope.returnResult="";
       $scope.queryResult=Playlist.searchKeywords(query)
       .then(function SuccessCallback(response){
-        console.log("ahahahaahahahah");
-        console.log(response);
-        if(response == 'zeroResults'){
+          $scope.drawList(response,query);
+      });
+    $scope.searchPlaylists(query);
+  }
+
+  $scope.drawList=function(response,query){
+    if(response == 'zeroResults'){
             $scope.returnResult="You don't have any playlists tagged as '"+query+"'. Check out the ones below!";
             $scope.showPlaylists=[];
         }else{
 
             $scope.returnResult="Your playlist tagged as "+query+":";
             $scope.showPlaylists=Playlist.getPlaylist(response);
-            console.log("$scope.showPlaylists");
-            console.log($scope.showPlaylists);
         }
-      });
-    Playlist.searchPlaylists(query);
   }
-
-
+  $scope.searchPlaylists=function(query){
+    $scope.sgResult="You might also like:";
+      Playlist.searchPlaylists(query)
+      .then(function SuccessCallback(response){
+          console.log("22222223333333222222");
+          console.log(response);
+          $scope.sgPlaylists=response;
+      });
+     
+  }
   //gets the user-specific labels from the backend
   $scope.getUserLabels = function(userId,labeltype){
     $scope.userLabel="";

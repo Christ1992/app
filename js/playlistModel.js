@@ -11,25 +11,18 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   //the queryparameter holds the selected mood and genre "energetic rock" for example
   this.searchPlaylists = function(query) {
     console.log("search playlisssttssss"+query)
-    $.ajax({
+    return $http({
       url: 'https://api.spotify.com/v1/search?q='+query+'&type=playlist&market=SE',
       headers: {
        'Authorization': 'Bearer ' + this.getAccessToken()
-
-     },
-     dataType: 'json',
-     success: function(result){
-      var sgPlaylists = result.playlists.items;
-      console.log(result.playlists.items);
-      $("#results-suggested").html("<span class='header-style1'>You might also like: </span><br />");
-      for (key in sgPlaylists){
-       var sgPlaylist = sgPlaylists[key];
-            $("#results-suggested").append("<div class='playlist-div' style='background-image: url("+sgPlaylist.images[0].url+");'><a href='#/playlist/"+sgPlaylist.id+"/"+sgPlaylist.owner.id+"/"+sgPlaylist.name+"'><div class='playlist-div-details'>"+sgPlaylist.name+"</div></a></div>");
-          }
-
-          return result.items;
-        }
-      });
+       },
+      dataType: 'json'
+    }).then(function successCallback(response){
+        var result = response.data;
+        var sgPlaylists = result.playlists.items;
+        
+        return sgPlaylists;
+    });
   }
   
 
@@ -81,7 +74,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
       // this callback will be called asynchronously
       // when the response is available
       var data = response.data.items;
-      console.log("PlaylistTRACKresponse: "+data);
+      
       return data;
       }, function errorCallback(response) {
       // called asynchronously if an error occurs
@@ -140,7 +133,6 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
     data: data
     }).then(function(response){
       var result = response.data;
-      console.log(result);
       console.log("Access token: "+result.access_token);
       accessToken = result.access_token;
       $cookieStore.put("accesstoken", result.access_token);
@@ -168,8 +160,6 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
       data: {Query:query, UserId:userId}
     }).then(function SuccessCallback(response){
       var result = response.data;
-      console.log("result");
-      console.log(result);
       return result;
     },function errorCallback(response){
       console.log("An error occured");
@@ -192,7 +182,6 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
         }
       }
     }
-    
     return array
   }
 //returen all the playlists array
@@ -207,9 +196,6 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
     }).then(function successCallback(response) {
       
       var data = response.data;
-      console.log("getuserplaylists");
-      console.log(data.items);
-
       return data.items;
       }, function errorCallback(response) {
           console.log("gick åt hvete");
@@ -245,21 +231,18 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
         for(key in result){
           array.push(result[key].id);
         }
-        console.log("ahahahahahahiwwwwwwwwwwwwwwwww");
         return array
     });
   }
   
 
 this.checkIfFollowed = function(playlistid,ownerId){
-    console.log("checkiffollowplaylist...");
-
     return $http({
         url: 'https://api.spotify.com/v1/users/'+ownerId+'/playlists/'+playlistid+'/followers/contains?ids='+this.getUserId(),
         method: 'GET',
         headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
       }).then(function successCallback(response){
-          result = response.data;
+          var result = response.data;
           console.log(response.data);
           return result;
         }, function errorCallback(response) {
@@ -274,7 +257,7 @@ this.checkIfFollowed = function(playlistid,ownerId){
       method: 'PUT',
       headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
     }).then(function SuccessCallback(response){
-      result = response.data;
+      var result = response.data;
       console.log(response.data);
       return result;
       }, function errorCallback(response){
@@ -289,7 +272,7 @@ this.checkIfFollowed = function(playlistid,ownerId){
       method: 'DELETE',
       headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
     }).then(function SuccessCallback(response){
-      result = response.data;
+      var result = response.data;
       console.log(response.data);
       return result;
     }, function errorCallback(response){
@@ -299,7 +282,7 @@ this.checkIfFollowed = function(playlistid,ownerId){
 
 
 
-  //20:14
+  //get user's labels
   this.getUserLabels=function(userId,labeltype){
     return $http({
       method: 'POST',
