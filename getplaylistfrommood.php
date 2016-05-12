@@ -8,7 +8,10 @@ $databasename = 'playlist';
 //$name = $_POST['Name'];
 //$antalkassa = $_POST['Antalkassa'];
 
-$mood = $_POST['Mood'];
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+$mood = $request->Mood;
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $databasename);

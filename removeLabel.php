@@ -1,6 +1,7 @@
 <?php
 include 'db-login.php';
-
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
 $userId = $_POST['UserId'];
 $removeLabel = $_POST['RemoveLabel'];
 $labelType = $_POST['LabelType'];

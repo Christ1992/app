@@ -104,14 +104,14 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
 
   //gets the user-specific labels from the backend
   $scope.getUserLabels = function(userId,labeltype){
-    console.log("getaUSERID "+userId);
-    $.ajax({
-      type: 'POST',
+    console.log("getUserLabels: "+userId);
+    $http({
+      method: 'POST',
       url: 'getlabels.php',
-      dataType: 'json',
-      data: {UserId:userId, LabelType: labeltype},
-      success: function(result){
-        if(labeltype=='mood'){
+      data: {UserId:userId, LabelType: labeltype}
+    }).then(function SuccessCallback(response){
+      var result = response.data;
+      if(labeltype=='mood'){
           $("#search-moods").html('<span class="span-label">Select mood:</span>');
           for(key in result){
             var $el = $("#search-moods").append('<span class="span-moods" ng-click="searchGenreMood('+"'"+result[key].mood+"'"+')">'+result[key].mood+'</span>');
@@ -124,11 +124,9 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
           }
           $compile($el)($scope);
         }
-      },
-      error: function(){
-        console.log("ERROR!");
-      }
-    });
+    }, function errorCallback(response){
+      console.log("ERROR!");
+    })
   }
 
   //some nice animations using jQuery.animate()
