@@ -1,13 +1,5 @@
 playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
 
-
-//   $('.span-moods').on('click', function(){
-//     //$('.span-moods').removeClass('currentLink');
-//     $(this).addClass('currentLink');
-//     console.log("addingclass");
-// });
-
-
   //gets all playlists that the user HAS ADDED META to
   //and put them in an array, then compares the array to
   //an array containing ALL THE USERS PLAYLISTS in order to
@@ -37,7 +29,9 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
         }
   }
   
+//indicator for highlight the labels  
 $scope.selCont = -1;
+$scope.selCont2 = -1;
 //search function that searches by genre OR mood (query)
   //gets all the playlists from the backend with the corresponding mood/genre
   $scope.searchGenreMood = function(query,index,labeltype){
@@ -47,8 +41,8 @@ $scope.selCont = -1;
       $scope.selCont = index;
       $scope.selCont2 = -1;
     }else if(labeltype=='genre'){
+      $scope.selCont = -1;
       $scope.selCont2 = index;
-      $scope.selCont1 = -1;
     }
 
     $scope.returnResult="";
