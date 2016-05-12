@@ -19,20 +19,36 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
       console.log(response);
       Playlist.setPlaylists(response);
       $scope.showPlaylists=response;
+      
+    Playlist.getAllEdits().then(function successCallback(response) {
+      $scope.arrayId=response;
+      
+    });
+      
+      
 
-
-
-      $scope.getStatus=function(id){
-        if(jQuery.inArray(id, response) !== -1){
+      
+    });
+  }
+  $scope.checkStatus=function(id){
+        // var idArray=[];
+        // // var response=Playlist.getAllPlaylists();
+        // for(item in response){
+        //   idArray.push(item.id);
+        // }
+        console.log(id);
+        console.log("$scope.arrayId)");
+        console.log($scope.arrayId);
+        if(jQuery.inArray(id, $scope.arrayId) !== -1){
               //edited
               return true
               //editedhtml="<div class='div-edited' style='background-color: yellow; margin-top: 162px; margin-left: 83px; position: absolute; width:5px; height:5px; border-width: 1px; border-color: #000; border-radius: 5px;'></div>";
         }else{
             return false
         }
-      }
-    });
   }
+  $
+
     // $http({
     //   method: 'POST',
     //   url: 'getplaylist.php',
@@ -113,29 +129,41 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
   
   //SEARCHES FOR USERS PLAYLIST WITH A KEYWORD AS PARAMETER
   $scope.searchKeywords = function(query){
-      var userId = Playlist.getUserId();
-      console.log(query);
-      $http({
-        method: 'POST',
-        url: 'getplaylistfromkeywords.php',
-        data: {Keyword:query, UserId:userId}
-      }).then(function SuccessCallback(response){
-        var result = response.data;
-        var array = [];
-        console.log("RESULT! "+result);
-        for(key in result){
-          array.push(result[key].id);
-        }
-        Playlist.getPlaylist(array,query);
-        Playlist.searchPlaylists(query);
-        if(result == 'zeroResults'){
-          $("#results").html("<span class='errormsg'>You don't have any playlists with the keyword '"+query+"'. Check out the ones below!</span>");
-          Playlist.searchPlaylists(query);
-        }
-      }, function errorCallback(response){
-        console.log("An error occurred");
-      })
-    }
+      $scope.returnResult="";
+      $scope.queryResult=Playlist.searchKeywords(query)
+      .then(function SuccessCallback(response){
+        console.log("ahahahaahahahah");
+        console.log(response);
+        // if(response == 'zeroResults'){
+        //     $scope.returnResult="You don't have any playlists tagged as '"+query+"'. Check out the ones below!";
+        //     $scope.showPlaylists=[];
+        // }else{
+
+        //     $scope.returnResult="Your playlist tagged as "+query+":";
+        //     $scope.showPlaylists=Playlist.getPlaylist(response);
+        //     console.log("$scope.showPlaylists");
+        //     console.log($scope.showPlaylists);
+        // }
+      });
+    Playlist.searchPlaylists(query);
+  }
+      
+      //   var result = response.data;
+      //   var array = [];
+      //   console.log("RESULT! "+result);
+      //   for(key in result){
+      //     array.push(result[key].id);
+      //   }
+      //   Playlist.getPlaylist(array,query);
+      //   Playlist.searchPlaylists(query);
+      //   if(result == 'zeroResults'){
+      //     $("#results").html("<span class='errormsg'>You don't have any playlists with the keyword '"+query+"'. Check out the ones below!</span>");
+      //     Playlist.searchPlaylists(query);
+      //   }
+      // }, function errorCallback(response){
+      //   console.log("An error occurred");
+      // })
+    
 
   
 

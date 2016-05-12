@@ -17,7 +17,7 @@
      <a ng-repeat='item in showPlaylists' ng-href='#/playlist/{{item.id}}/{{item.owner.id}}/{{item.name}}'>
         <div class='playlist-div' ng-style="{'background-image':'url({{item.images[0].url}})'}">
               <div class='box-container' ng-mouseover='slideUp($event)' ng-mouseout='slideDown($event)'></div>
-              <div class='div-edited' ng-show="getStatus(item.id.id);" style='background-color: yellow; margin-top: 162px; margin-left: 83px; position: absolute; width:5px; height:5px; border-width: 1px; border-color: #000; border-radius: 5px;'></div>
+              <div class='div-edited' ng-show="checkStatus(item.id)" style='background-color: yellow; margin-top: 162px; margin-left: 83px; position: absolute; width:5px; height:5px; border-width: 1px; border-color: #000; border-radius: 5px;'></div>
               <div class='playlist-div-details'>{{item.name}}<br/><span='tracks' style='font-size:26px; font-weight:bold'>{{item.tracks.total}} Tracks!</span></div>
         </div>
     </a>

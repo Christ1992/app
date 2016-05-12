@@ -224,6 +224,36 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   this.getAllPlaylists=function(){
     return playlists;
   }
+
+  this.searchKeywords= function(query){
+      var userId=this.getUserId();
+      return $http({
+        method: 'POST',
+        url: 'getplaylistfromkeywords.php',
+        data: {Keyword:query, UserId:userId}
+      }).then(function SuccessCallback(response){
+        var data = response.data;
+        return data;
+      },function errorCallback(response){
+        console.log("An error occurred");
+      })
+  }
+  this.getAllEdits=function(){
+    var userId=this.getUserId();
+    return $http({
+      method: 'POST',
+      url: 'getplaylist.php',
+      data: {UserId:userId}
+    }).then(function SuccessCallback(response){
+      var result = response.data;
+        var array = [];
+        for(key in result){
+          array.push(result[key].id);
+        }
+        console.log("ahahahahahahiwwwwwwwwwwwwwwwww");
+        return array
+    });
+  }
   
 
   return this;
