@@ -41,7 +41,8 @@ body{
 	color:#fff;
 	cursor:pointer;
 }
-.currentLink{
+.selected{
+/*.currentLink{*/
 	background-color: #00bb00;
 	color:#fff;
 }

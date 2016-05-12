@@ -251,6 +251,68 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   }
   
 
+this.checkIfFollowed = function(playlistid,ownerId){
+    console.log("checkiffollowplaylist...");
+
+    return $http({
+        url: 'https://api.spotify.com/v1/users/'+ownerId+'/playlists/'+playlistid+'/followers/contains?ids='+this.getUserId(),
+        method: 'GET',
+        headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+      }).then(function successCallback(response){
+          result = response.data;
+          console.log(response.data);
+          return result;
+        }, function errorCallback(response) {
+          console.log("gick åt hvete");
+        });
+
+  }
+
+    this.followPlaylist = function(playlistid,ownerId){
+    return $http({
+      url: 'https://api.spotify.com/v1/users/'+ownerId+'/playlists/'+playlistid+'/followers',
+      method: 'PUT',
+      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+    }).then(function SuccessCallback(response){
+      result = response.data;
+      console.log(response.data);
+      return result;
+      }, function errorCallback(response){
+          console.log("ERROR! editplaylistctrl>followplaylist");
+      });
+  }
+
+  //UNFOLLOWS A PLAYLIST
+  this.unfollowPlaylist = function(playlistid,ownerId){
+    return $http({
+      url: 'https://api.spotify.com/v1/users/'+ownerId+'/playlists/'+playlistid+'/followers',
+      method: 'DELETE',
+      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+    }).then(function SuccessCallback(response){
+      result = response.data;
+      console.log(response.data);
+      return result;
+    }, function errorCallback(response){
+          console.log("An error occured");
+      });
+  }
+
+
+
+  //20:14
+  this.getUserLabels=function(userId,labeltype){
+    return $http({
+      method: 'POST',
+      url: 'getlabels.php',
+      data: {UserId:userId, LabelType: labeltype}
+    }).then(function SuccessCallback(response){
+        var result = response.data;
+        return result;
+    });
+
+  }
+  
+
   return this;
 
 

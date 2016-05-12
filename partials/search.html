@@ -3,8 +3,15 @@
 	<div class="col-md-12" class="home">
 		<h3>Filter playlists</h3>
         <div class="col-md-6" id="search-moods">
+          <span class="span-label">Select mood:</span>
+          <span ng-repeat="item in moodLabels" ng-class="{'selected':$index==selCont}" ng-click="searchGenreMood(item.mood,$index,'mood')">{{item.mood}}</span>
         </div>
+
+
         <div class="col-md-6" id="search-genres">
+        <span class="span-label">Select genre:</span>
+        <span ng-repeat="item in genreLabels" ng-class="{'selected':$index==selCont2}" ng-click="searchGenreMood(item.genre,$index,'genre')">{{item.genre}}</span>
+\
         </div>
         <form ng-submit="searchKeywords(keywords)">
 		<div class="form-group">

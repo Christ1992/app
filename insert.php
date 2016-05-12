@@ -1,12 +1,6 @@
 <?php
 include 'db-login.php';
 
-//$id = $_POST['Id'];
-//$mood = $_POST['Mood'];
-//$genre = $_POST['Genre'];
-//$keywords = $_POST['Keywords'];
-//$userId = $_POST['UserId'];
-
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 $id = $request->Id;
