@@ -9,7 +9,7 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
   $scope.getAllPlaylists = function(){
     $scope.returnResult="Your playlists:";
     Playlist.getUserPlaylists().then(function successCallback(response) {
-      console.log(response);
+      //console.log(response);
       Playlist.setPlaylists(response);
       $scope.showPlaylists=response;
       
@@ -31,7 +31,7 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
   }
 
 
- $scope.sgResult=""; 
+
 //indicator for highlight the labels  
 $scope.selCont = -1;
 $scope.selCont2 = -1;
@@ -81,8 +81,7 @@ $scope.selCont2 = -1;
     $scope.sgResult="You might also like:";
       Playlist.searchPlaylists(query)
       .then(function SuccessCallback(response){
-          console.log("22222223333333222222");
-          console.log(response);
+
           $scope.sgPlaylists=response;
       });
      
@@ -92,8 +91,6 @@ $scope.selCont2 = -1;
     $scope.userLabel="";
     Playlist.getUserLabels(userId,labeltype)
     .then(function SuccessCallback(result){
-        console.log("resulttttttttt");
-        console.log(result);
         if(labeltype=='mood'){
           $scope.moodLabels=result;
 
@@ -145,6 +142,7 @@ $scope.selCont2 = -1;
   //Playlist.getUserData();
   $scope.getUserLabels(Playlist.getUserId(),"mood");
   $scope.getUserLabels(Playlist.getUserId(),"genre");
+  $scope.searchPlaylists("night");
   $scope.getAllPlaylists();
 
 

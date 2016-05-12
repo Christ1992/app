@@ -92,16 +92,13 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
     */
 
 	//CHECKS IF THERE IS ANY META ATTACHED TO THE PLAYLIST IN THE DATABASE
-	$scope.getMeta = function(playlistId){
+	$scope.getMeta = function(id,userid){
 		var id=$scope.playlistId;
 		var userid = Playlist.getUserId();
 		console.log("PLaylistID: "+id);
-		$http({
-			method: 'POST',
-			url: 'getplaylist.php',
-			data: {Id:id, UserId:userid}
-		}).then(function SuccessCallback(response){
-			var result=response.data;
+		Playlist.getMeta(id,userid)
+		.then(function SuccessCallback(result){
+			console.log(result);
 			$scope.mood=result.mood;
 			$scope.genre=result.genre;
 			$scope.savedkeywords=result.keywords;
