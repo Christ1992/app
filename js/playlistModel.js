@@ -183,17 +183,12 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
     console.log("getPLaylist: "+playlists);
     var array=[];
     for (var i = 0;i< idArray.length; i++) {
-      console.log("item");
-      console.log(idArray[i]);
+      
       for(key in playlists){
         var playlist=playlists[key];
-        console.log("playlist");
-        console.log(playlist);
-        console.log(playlist.id);
+        
         if(playlist.id==idArray[i].id){
-          array.push(playlist);
-          console.log("arrrrrrrrrrr")
-          console.log(array);
+           array.push(playlist);
         }
       }
     }

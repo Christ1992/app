@@ -31,14 +31,7 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
     });
   }
   $scope.checkStatus=function(id){
-        // var idArray=[];
-        // // var response=Playlist.getAllPlaylists();
-        // for(item in response){
-        //   idArray.push(item.id);
-        // }
-        console.log(id);
-        console.log("$scope.arrayId)");
-        console.log($scope.arrayId);
+        
         if(jQuery.inArray(id, $scope.arrayId) !== -1){
               //edited
               return true
@@ -134,6 +127,16 @@ playlistApp.controller('SearchCtrl', function ($scope,$compile,Playlist,$http) {
       .then(function SuccessCallback(response){
         console.log("ahahahaahahahah");
         console.log(response);
+        if(response == 'zeroResults'){
+            $scope.returnResult="You don't have any playlists tagged as '"+query+"'. Check out the ones below!";
+            $scope.showPlaylists=[];
+        }else{
+
+            $scope.returnResult="Your playlist tagged as "+query+":";
+            $scope.showPlaylists=Playlist.getPlaylist(response);
+            console.log("$scope.showPlaylists");
+            console.log($scope.showPlaylists);
+        }
         // if(response == 'zeroResults'){
         //     $scope.returnResult="You don't have any playlists tagged as '"+query+"'. Check out the ones below!";
         //     $scope.showPlaylists=[];
