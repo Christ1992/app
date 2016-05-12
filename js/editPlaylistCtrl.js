@@ -118,7 +118,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 		var id=$scope.playlistId;
 		var userid = Playlist.getUserId();
 		console.log("PLaylistID: "+id);
-		$.http({
+		$http({
 			method: 'POST',
 			url: 'getplaylist.php',
 			dataType: 'json',

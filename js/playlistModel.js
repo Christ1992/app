@@ -5,19 +5,7 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   var playlists = [];
 
 
-  this.getUserPlaylists = function(){
-    return $http({
-      method: 'GET',
-      url: 'https://api.spotify.com/v1/users/'+this.getUserId()+'/playlists?limit=50',
-      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
-    }).then(function successCallback(response) {
-      console.log("getuserplaylists");
-      var data = response.data;
-      return data;
-    }, function errorCallback(response) {
-          console.log("gick åt hvete");
-        });
-    }
+  
 
   //searches for "global"-playlists that we can suggest to the user
   //the queryparameter holds the selected mood and genre "energetic rock" for example
@@ -43,27 +31,9 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
         }
       });
   }
-  this.getAllPlaylists=function(){
-    return playlists;
-  }
+  
 
-    //get playlist from an array with id's created in the search-ctrl
-    //the id's are taken from the database, this in order to display
-    //the users OWN playlists that he has tagged with the relevant mood/genre/keywords
-    this.getPlaylist = function(idArray,genre) {
-    //console.log(idArray);
-    $("#results").html("<span class='header-style1'>Your playlists tagged as "+genre+":</span><br />");
-    console.log("getPLaylist: "+playlists);
-    for (key in playlists){
-       var playlist = playlists[key];
-       if(jQuery.inArray(playlist.id, idArray) !== -1)
-           /* for (key in playlist.images){
-              var image = playlist.images[key]
-              console.log(image.url);
-            }*/
-            $("#results").append("<div class='playlist-div' style='background-image: url("+playlist.images[0].url+");'><a href='#/playlist/"+playlist.id+"/"+playlist.owner.id+"/"+playlist.name+"'><div class='playlist-div-details'>"+playlist.name+"</div></a></div>");
-          }
-  }
+    
 
       //gets user info of the current user
       this.getUserData = function(){
@@ -177,6 +147,84 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
       return result.access_token;
     })
   }
+  //11:44
+  this.createDatabase = function(userId) {
+    $http({
+      url: 'createdatabase.php',
+      method: 'POST',
+      data: {UserId:userId}
+    }).then(function SuccessCallback(response){
+      console.log("Database created!" + response.data)
+    }, function errorCallback(response){
+      console.log("Error setting up Database!");
+    });
+  }
+  //13:41
+  this.searchGenreMood = function(query){
+    var userId = this.getUserId();
+    return $http({
+      method: 'POST',
+      url: 'getplaylistfromgenre.php',
+      data: {Query:query, UserId:userId}
+    }).then(function SuccessCallback(response){
+      var result = response.data;
+      console.log("result");
+      console.log(result);
+      return result;
+    },function errorCallback(response){
+      console.log("An error occured");
+    });
+  }
+
+  //get playlist from an array with id's created in the search-ctrl
+    //the id's are taken from the database, this in order to display
+    //the users OWN playlists that he has tagged with the relevant mood/genre/keywords
+  this.getPlaylist = function(idArray) {
+    console.log("getPLaylist: "+playlists);
+    var array=[];
+    for (var i = 0;i< idArray.length; i++) {
+      console.log("item");
+      console.log(idArray[i]);
+      for(key in playlists){
+        var playlist=playlists[key];
+        console.log("playlist");
+        console.log(playlist);
+        console.log(playlist.id);
+        if(playlist.id==idArray[i].id){
+          array.push(playlist);
+          console.log("arrrrrrrrrrr")
+          console.log(array);
+        }
+      }
+    }
+    
+    return array
+  }
+//returen all the playlists array
+  this.getUserPlaylists = function(){
+    var userId=this.getUserId();
+    var accesstoken=this.getAccessToken();
+        console.log("laiguozheli");
+    return $http({
+      method: 'GET',
+      url: 'https://api.spotify.com/v1/users/'+userId+'/playlists?limit=50',
+      headers: {'Authorization': 'Bearer ' + accesstoken}
+    }).then(function successCallback(response) {
+      
+      var data = response.data;
+      console.log("getuserplaylists");
+      console.log(data.items);
+
+      return data.items;
+      }, function errorCallback(response) {
+          console.log("gick åt hvete");
+      });
+  }
+
+  this.getAllPlaylists=function(){
+    return playlists;
+  }
+  
 
   return this;
 

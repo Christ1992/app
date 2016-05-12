@@ -9,9 +9,9 @@ include 'db-login.php';
 //$genre = $_POST['LabelType'];
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
-$userId = $_POST['UserId'];
-$newLabel = $_POST['NewLabel'];
-$labelType = $_POST['LabelType'];
+$userId = $request->UserId;
+$newLabel = $request->NewLabel;
+$labelType = $request->LabelType;
 
 //$userId = 'ledzappa';
 //$newLabel = 'test';

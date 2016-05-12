@@ -5,12 +5,13 @@ playlistApp.controller('EditLabelsCtrl', function ($scope,$routeParams,$interval
 
 $scope.getUserLabels = function(userId,labeltype){
     console.log("getaUSERID "+userId);
-    $.ajax({
-      type: 'POST',
+    $http({
+      method: 'POST',
       url: 'getlabels.php',
       dataType: 'json',
-      data: {UserId:userId, LabelType: labeltype},
-      success: function(result){
+      data: {UserId:userId, LabelType: labeltype}
+    }).then(function SuccessCallback(response){
+      var result = response.data;
         if(labeltype=='mood'){
           $("#addLabel-moods").html('');
           for(key in result){
@@ -24,43 +25,38 @@ $scope.getUserLabels = function(userId,labeltype){
           }
           $compile($el)($scope);
         }
-      },
-      error: function(){
+      },function errorCallback(response){
         console.log("ERROR!");
-      }
-    });
+      });
   }
 
   $scope.addLabel = function(labelType,newLabel){
-  	var userId = Playlist.getUserId();
-  	$.ajax({
-      type: 'POST',
+    var userId = Playlist.getUserId();
+    $http({
+      method: 'POST',
       url: 'addLabel.php',
-      data: {UserId:userId, LabelType: labelType, NewLabel: newLabel},
-      success: function(result){
-      	alert('Label added!');
+      data: {UserId:userId, LabelType: labelType, NewLabel: newLabel}
+    }).then(function successCallback(response){
+        alert('Label added!');
         location.reload();
-      },
-      error: function(){
+    },function errorCallback(response) {
         console.log("ERROR!");
-      }
     });
   }
+
 
   $scope.removeLabel = function(labelType,removeLabel){
     console.log("removelabel" + labelType + " " + removeLabel)
     var userId = Playlist.getUserId();
-    $.ajax({
-      type: 'POST',
+    $http({
+      method: 'POST',
       url: 'removeLabel.php',
       data: {UserId:userId, LabelType: labelType, RemoveLabel: removeLabel},
-      success: function(result){
+    }),.then(function successCallback(response){
         alert('Label removed!');
         location.reload();
-      },
-      error: function(){
+    },function errorCallback(response){
         console.log("ERROR!");
-      }
     });
   }
 
