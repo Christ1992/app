@@ -203,7 +203,10 @@ playlistApp.factory('Playlist',function ($cookieStore,$resource,$http) {
   }
 
   this.getAllPlaylists=function(){
-    return playlists;
+    
+      return playlists;
+    
+    
   }
 
   this.searchKeywords= function(query){

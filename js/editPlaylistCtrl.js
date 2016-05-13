@@ -1,9 +1,22 @@
-playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interval,$compile,$http,Playlist) {
+playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interval,$compile,$http,Playlist,$sce) {
 
 	$scope.playlistId = $routeParams.playlistId;
 	$scope.playlistUserId = $routeParams.playlistUserId;
   	$scope.playlistName = $routeParams.playlistName;
-  	$scope.playlistArrow = Playlist.getAllPlaylists();
+  	
+
+  	Playlist.getUserPlaylists()
+  	.then(function successCallback(response) {
+          $scope.playlistArrow=response;
+          console.log("nicaiwoshishuidssssssssss");
+          console.log("nicaiwoshishuiddddddddd");
+          console.log($scope.playlistArrow);
+
+        });
+  	
+  	console.log($scope.playlistArrow);
+  	console.log("nicaiwoshishuidssssssssss");
+  	console.log("nicaiwoshishuidssssssssss");
 
 	var isFollowed = "";
 
@@ -56,9 +69,11 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	}
 
 	$scope.getPlayer = function(playlistId,playlistUserId){
-		$("#player-div").html("");
-		playerHtml = '<iframe src="https://embed.spotify.com/?uri=spotify:user:'+playlistUserId+':playlist:'+playlistId+'" width="450" height="500" frameborder="0" allowtransparency="true"></iframe>';
-		$("#player-div").append(playerHtml);
+		$scope.playerUrl=$sce.trustAsResourceUrl("https://embed.spotify.com/?uri=spotify:user:"+playlistUserId+":playlist:"+playlistId);
+		
+		// $("#player-div").html("");
+		// playerHtml = '<iframe src="https://embed.spotify.com/?uri=spotify:user:'+playlistUserId+':playlist:'+playlistId+'" width="450" height="500" frameborder="0" allowtransparency="true"></iframe>';
+		// $("#player-div").append(playerHtml);
 	}
 
 	//FIX HTTP
@@ -113,19 +128,6 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
       	});
       }
 
-		/*$.ajax({
-			type: 'POST',
-			url: 'insert.php',
-			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId},
-			success: function(result){
-				alert("saved!");
-				location.reload();
-			},
-			error: function(){
-				alert('error saving order');
-			}
-		});*/
-	
 
 	$scope.getUserLabels('mood');
 	$scope.getUserLabels('genre');
