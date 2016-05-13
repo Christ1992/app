@@ -94,20 +94,19 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 		var id= $scope.playlistId;
 		var ownerId=$scope.playlistUserId;
 		Playlist.checkIfFollowed(id,ownerId).then(function successCallback(result){
-        	
-        	if(result==true){
-        		$('#followStatus').show();
-        		$('#followStatus2').hide();
-        	}else{
-        		$('#followStatus').hide();
-        		$('#followStatus2').show();
-        	}
-        	$scope.followStatus=result;
+        	if (result=="true"){
+        		var $el = $("#follow-button-span").html('<button class="btn editplaylist-follow" style="background-color:#006633; color:#fff" ng-click="unfollowPlaylist()">Followed</button>');
+        		$compile($el)($scope);
+          	} else if (result=="false") {
+          		var $el = $("#follow-button-span").html('<button class="btn editplaylist-follow" style="background-color:#000" ng-click="followPlaylist()">Follow</button>');
+        		$compile($el)($scope);
+          	}
+        	}, function errorCallback(result) {
+          		console.log("gick åt hvete");
+      			console.log(result);
+			});
 
-        	console.log("!1111");
-        	console.log(result);
 
-        });
 
 	}
 
