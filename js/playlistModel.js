@@ -294,6 +294,16 @@ this.checkIfFollowed = function(playlistid,ownerId){
     });
 
   }
+  this.getMeta = function(id,userid){
+    return $http({
+      method: 'POST',
+      url: 'getplaylist.php',
+      data: {Id:id, UserId:userid}
+    }).then(function SuccessCallback(response){
+        var result = response.data;
+        return result;
+    });
+  }
 
     return this;
 
