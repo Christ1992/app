@@ -65,6 +65,10 @@
         <div class="col-md-7 playlistview">
            <span class="editplaylist-title">{{playlistName}}</span>
             <span id="follow-button-span">
+                <button ng-show="followStatus" class="btn editplaylist-follow" style="background-color:#006633; color:#fff" ng-click="unfollowPlaylist()">Followed</button>
+                <button ng-hide="followStatus" class="btn editplaylist-follow" style="background-color:#000" ng-click="followPlaylist()">Follow</button>
+
+            </span>
         </div>
         <div class="col-md-7" id="player-div">
             <iframe ng-src="{{playerUrl}}" width="450" height="500" frameborder="0" allowtransparency="true"></iframe>
