@@ -27,32 +27,35 @@
             <form method="GET">
                 <div class="form-group">
                      <label for="exampleInputEmail1">Add keywords (separate with spaces):</label>
-                    <input type="text" class="form-control" ng-model="keywords" placeholder="{{savedkeywords}}">
+                    <input type="text" class="form-control" ng-model="savedkeywords" placeholder="{{savedkeywords}}">
                 </div>
                 <div class="form-group">
                     <label>Select a mood: </label>
-                    <select class="form-control" id="mood-select" ng-model="moodList">
+                    <select class="form-control" id="mood-select" name="singleSelect" ng-model="mood">
+                          <option value="">---Please select---</option> 
+                          <option ng-repeat="item in moodLabels" ng-value="item.mood">{{item.mood}}</option>
+                    </select>
+
+
+                    <!-- <select class="form-control" id="mood-select" ng-model="mood">
                         <option value="" disabled>{{mood}}</option>
                         <option value="energetic">Energetic</option>
                         <option value="romantic">Romantic</option>
                         <option value="chill">Chill</option>
                         <option value="sleepy">Sleepy</option>
                         <option value="party">Party</option>
-                    </select>
+                    </select> -->
                 </div>
                 <div class="form-group">
                     <label>Select a genre: </label>
-                    <select class="form-control" id="genre-select" ng-model="genreList" title="please select">
-                        <option value="" disabled>{{genre}}</option>
-                        <option value="rock">Rock</option>
-                        <option value="pop">Pop</option>
-                        <option value="electro" selected>Electro</option>
-                        <option value="acoustic">Acoustic</option>
-                        <option value="other">Other</option>
+                    <select class="form-control" id="genre-select" name="singleSelect" ng-model="genre" >
+                          <option value="">---Please select---</option> 
+                          <option ng-repeat="item in genreLabels" ng-value="item.genre">{{item.genre}}</option>
                     </select>
+                    
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" ng-click="insert('769',moodList,genreList,keywords)"/>
+                    <input type="submit" class="btn btn-primary" ng-model="savedkeywords" ng-click="insert('769',mood,genre,savedkeywords)"/>
                 </div>
 
 

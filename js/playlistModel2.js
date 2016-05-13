@@ -294,7 +294,32 @@ this.checkIfFollowed = function(playlistid,ownerId){
     });
 
   }
+  
+  this.getMeta=function(playlistid,userId){
+    return $http({
+      method: 'POST',
+      url: 'getplaylist.php',
+      data: {Playlistid:playlistid, UserId:userId}
+    }).then(function SuccessCallback(response){
+        var result = response.data;
+        return result;
+    });
+  }
 
-    return this;
+ this.insert=function(id,mood,genre,keywords){
+    var userId=this.getUserId();
+     return $http({
+      method: 'POST',
+      url: 'insert.php',
+      data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId}
+    }).then(function SuccessCallback(response){
+        var result = response.data;
+        return result;
+    });
+  }
+
+
+  return this;
+
 
 });
