@@ -44,12 +44,8 @@ playlistApp.controller('EditLabelsCtrl', function ($scope,$routeParams,$interval
   $scope.removeLabel = function(labelType,removeLabel){
     console.log("removelabel" + labelType + " " + removeLabel)
     var userId = Playlist.getUserId();
-    $http({
-      method: 'POST',
-      url: 'removeLabel.php',
-      data: {UserId:userId, LabelType: labelType, RemoveLabel: removeLabel}
-    }).then(function SuccessCallback(response){
-      var result = response.data;
+    Playlist.removeLabel(labelType,removeLabel)
+    .then(function SuccessCallback(response){
       alert('Label removed!');
       location.reload();
     }, function errorCallback(response){

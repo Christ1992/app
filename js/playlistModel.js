@@ -316,6 +316,20 @@ this.checkIfFollowed = function(playlistid,ownerId){
     });
   }
 
+
+  this.removeLabel= function(labelType,removeLabel){
+    var userId=this.getUserId();
+    return $http({
+      method: 'POST',
+      url: 'removeLabel.php',
+      data: {UserId:userId, LabelType: labelType, RemoveLabel: removeLabel}
+    }).then(function SuccessCallback(response){
+      var result = response.data;
+      return result;
+    });
+  }
+  
+
     return this;
 
 });
