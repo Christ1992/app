@@ -45,9 +45,9 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 			$scope.genre=result.genre;
 			$scope.savedkeywords=result.keywords;
 			if(result=='zeroResults'){
-				$scope.mood="Add a mood!";
-				$scope.genre="Add a genre!";
-				$scope.savedkeywords="Add some keywords!";
+				$scope.mood="";
+				$scope.genre="";
+				$scope.savedkeywords="Add a keywords!";
 			}
 		}, function errorCallback(response){
       		console.log("An error occured: getMeta");
@@ -90,7 +90,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
           		console.log("gick åt hvete");
       			console.log(result);
 			});
-	ß}
+	}
 
 	$scope.followPlaylist = function(playlistId){
 		var id= $scope.playlistId;

@@ -328,6 +328,18 @@ this.checkIfFollowed = function(playlistid,ownerId){
       return result;
     });
   }
+
+  this.addLabel= function(labelType,newLabel){
+    var userId = this.getUserId();
+    return $http({
+      method: 'POST',
+      url: 'addLabel.php',
+      data: {UserId:userId, LabelType: labelType, NewLabel: newLabel}
+    }).then(function SuccessCallback(response){
+      var result = response.data;
+      return result;
+    });
+  }
   
 
     return this;

@@ -1,13 +1,10 @@
 playlistApp.controller('EditLabelsCtrl', function ($scope,$routeParams,$interval,$compile,$http,Playlist) {
 
-  $scope.getUserLabels = function(userId,labeltype){
-    console.log("getaUSERID "+userId);
-    $http({
-      method: 'POST',
-      url: 'getlabels.php',
-      data: {UserId:userId, LabelType: labeltype}
-    }).then(function SuccessCallback(response){
-      var result = response.data;
+   $scope.getUserLabels = function(userId,labeltype){
+      $scope.userLabel="";
+      Playlist.getUserLabels(userId,labeltype)
+      .then(function SuccessCallback(result){
+      console.log(result);
       if(labeltype=='mood'){
           $("#addLabel-moods").html('');
           for(key in result){
@@ -27,12 +24,10 @@ playlistApp.controller('EditLabelsCtrl', function ($scope,$routeParams,$interval
   }
 
   $scope.addLabel = function(labelType,newLabel){
-  	var userId = Playlist.getUserId();
-    $http({
-      method: 'POST',
-      url: 'addLabel.php',
-      data: {UserId:userId, LabelType: labelType, NewLabel: newLabel}
-    }).then(function SuccessCallback(response){
+    console.log("addlabel" )
+    var userId = Playlist.getUserId();
+    Playlist.addLabel(labelType,newLabel)
+    .then(function SuccessCallback(response){
       var result = response.data;
       alert('Label added!');
       location.reload();
@@ -40,7 +35,7 @@ playlistApp.controller('EditLabelsCtrl', function ($scope,$routeParams,$interval
       console.log("ERROR!");
     });
   }
-
+  
   $scope.removeLabel = function(labelType,removeLabel){
     console.log("removelabel" + labelType + " " + removeLabel)
     var userId = Playlist.getUserId();
