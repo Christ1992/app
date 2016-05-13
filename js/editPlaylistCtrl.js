@@ -64,13 +64,9 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 	//FIX HTTP
 	$scope.insert = function(id,mood,genre,keywords){
 		var id=$scope.playlistId;
-		var userId=Playlist.getUserId();
-		console.log("insert "+userId);
-		$http({
-			method: 'POST',
-			url: 'insert.php',
-			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId}
-		}).then(function SuccessCallback(response){
+		Playlist.insert(id,mood,genre,keywords)
+		.then(function SuccessCallback(result){
+		
 			alert("saved!");
 			location.reload();
     	}, function errorCallback(response){
@@ -79,48 +75,10 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
     }
 
 	
-	$scope.getPlayer = function(playlistId,playlistUserId){
-		$("#player-div").html("");
-		playerHtml = '<iframe src="https://embed.spotify.com/?uri=spotify:user:'+playlistUserId+':playlist:'+playlistId+'" width="450" height="500" frameborder="0" allowtransparency="true"></iframe>';
-		$("#player-div").append(playerHtml);
-	}
-
-	//FIX HTTP
-	$scope.insert = function(id,mood,genre,keywords){
-		var id=$scope.playlistId;
-		var userId=Playlist.getUserId();
-		console.log("insert "+userId);
-		$http({
-			method: 'POST',
-			url: 'insert.php',
-			data: {Id:id, Mood:mood, Genre:genre, Keywords:keywords, UserId:userId}
-		}).then(function SuccessCallback(response){
-			alert("saved!");
-			location.reload();
-    	}, function errorCallback(response){
-      		console.log("An error occured: getMeta");
-    	});
-    }
-
-	/*$scope.follow = function(playlistId){
-		var id= $scope.playlistId;
-		$scope.followStatus = Playlist.checkIfFollowed(id);
-		console.log(followStatus)
-		$scope.checkResult = $scope.followStatus.result;
-		console.log(checkResult)
-		if (checkResult == true){
-			Playlist.unfollowPlaylist(id);
-		}
-		else Playlist.followPlaylist(id);
-	}*/
-
-
 	$scope.checkIfFollowed = function(playlistId){
 		var id= $scope.playlistId;
 		var ownerId=$scope.playlistUserId;
 		Playlist.checkIfFollowed(id,ownerId).then(function successCallback(result){
-			console.log("11111111111111111111");
-        	console.log(result);
         	if (result=="true"){
         		var $el = $("#follow-button-span").html('<button class="btn editplaylist-follow" style="background-color:#006633; color:#fff" ng-click="unfollowPlaylist()">Followed</button>');
         		$compile($el)($scope);
@@ -132,14 +90,12 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
           		console.log("gick åt hvete");
       			console.log(result);
 			});
-		}
+	ß}
 
 	$scope.followPlaylist = function(playlistId){
 		var id= $scope.playlistId;
 		var ownerId=$scope.playlistUserId;
 		Playlist.followPlaylist(id,ownerId).then(function successCallback(result){
-        	console.log("1111111111111111111122222222222");
-        	console.log(result);
         	$scope.checkIfFollowed(id); 
         }, function errorCallback(result){
           console.log("ERROR! editplaylistctrl>followplaylist");
@@ -150,8 +106,7 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 		var id= $scope.playlistId;
 		var ownerId=$scope.playlistUserId;
 		Playlist.unfollowPlaylist(id,ownerId).then(function successCallback(result){
-        	console.log("111111111111111111112222222222233333333");
-        	console.log(result);
+        	
         	$scope.checkIfFollowed(id); 
         }, function errorCallback(result){
           console.log("ERROR! editplaylistctrl>followplaylist");
