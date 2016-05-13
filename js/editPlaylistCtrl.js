@@ -94,9 +94,12 @@ playlistApp.controller('EditPlaylistCtrl', function ($scope,$routeParams,$interv
 		var id= $scope.playlistId;
 		var ownerId=$scope.playlistUserId;
 		Playlist.checkIfFollowed(id,ownerId).then(function successCallback(result){
+        	
         	$scope.followStatus=result;
+
         	console.log("!1111");
         	console.log(result);
+
         });
 
 	}
